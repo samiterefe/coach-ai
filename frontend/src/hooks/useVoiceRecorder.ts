@@ -42,7 +42,7 @@ export const useVoiceRecorder = () => {
     isRecording,
     startRecording,
     stopRecording,
-    hasAudio,           // ✅ make sure this is returned
-    audioChunksRef      // ✅ and this too
+    hasAudio,           
+    audioChunksRef      
   };
 };
