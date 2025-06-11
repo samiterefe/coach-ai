@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { FaMicrophone, FaStop, FaPaperPlane, FaMagic } from "react-icons/fa";
+import { FaMicrophone, FaStop, FaMagic } from "react-icons/fa";
 import type { Message } from "../types/message";
 import { useVoiceRecorder } from "../hooks/useVoiceRecorder";
 import { sendAudioToBackend } from "../lib/api";
 import { BsStars } from "react-icons/bs";
+import { IoMdSend } from "react-icons/io";
 
 const ChatWindow: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
@@ -47,7 +48,7 @@ const ChatWindow: React.FC = () => {
 
   return (
     <div className="w-full max-w-md h-[600px] bg-white rounded-xl shadow-lg flex flex-col border border-gray-200 relative">
-      <div className="bg-[#3f6b85] text-white p-4 rounded-t-xl">
+      <div className="  bg-[#3f6b85] items-center flex justify-center text-white p-4 rounded-t-xl">
         <h1 className="text-lg font-semibold">Coach AI</h1>
       </div>
 
@@ -62,7 +63,7 @@ const ChatWindow: React.FC = () => {
             <div
               className={`max-w-xs px-4 py-2 rounded-xl text-sm flex items-center ${
                 msg.sender === "user"
-                  ? "bg-blue-500 text-white"
+                  ? "bg-[#3f6b85] text-white"
                   : "bg-gray-100 text-gray-800"
               }`}
             >
@@ -101,26 +102,38 @@ const ChatWindow: React.FC = () => {
             disabled={!recordedBlob || isProcessing}
             className="flex items-center gap-2 flex-1 text-left focus:outline-none disabled:cursor-not-allowed"
           >
-               {isRecording ? <BsStars /> : <FaPaperPlane /> } Ask Me Anything...
-         
+            <BsStars /> Ask Me Anything...
           </button>
 
           <button
             type="button"
             onClick={() => {
-              if (!isProcessing) {
-                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                isRecording ? handleStop() : startRecording();
+              if (isProcessing) return;
+
+              if (isRecording) {
+                handleStop();
+              } else if (recordedBlob) {
+                handleSend(recordedBlob);
+              } else {
+                startRecording();
               }
             }}
             disabled={isProcessing}
             className={`ml-4 p-3 rounded-full flex items-center justify-center text-white text-xl ${
               isRecording
                 ? "bg-red-500 animate-pulse"
-                : "bg-blue-400 hover:bg-blue-500"
+                : recordedBlob
+                ? "bg-[#3f6b85] hover:bg-[#397496]"
+                : "bg-[#3f6b85] hover:bg-[#397496]"
             } ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
           >
-            {isRecording ? <FaStop /> : <FaMicrophone />}
+            {isRecording ? (
+              <FaStop />
+            ) : recordedBlob ? (
+              <IoMdSend />
+            ) : (
+              <FaMicrophone />
+            )}
           </button>
         </div>
       </div>
