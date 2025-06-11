@@ -8,7 +8,7 @@ Coach AI is a simple voice-based chat interface. Users can record an audio messa
 
 * Press the mic to **start recording**
 * Press again to **stop recording**
-* Press "Ask Me Anything..." to **send the audio**
+* Press send button to **send the audio**
 * The backend sends it to **Deepgram API**
 * Transcription is returned and shown in chat
 
@@ -56,7 +56,7 @@ Coach AI is a simple voice-based chat interface. Users can record an audio messa
 
 1. 🎤 Record audio
 2. ⏹ Stop recording
-3. 📤 Click send (Ask Me Anything...)
+3. 📤 Click send button
 4. ⏳ Transcription happens
 5. 💬 AI reply appears in the chat
 
@@ -76,6 +76,4 @@ coach-ai/
 ## 🔑 Notes
 
 * Used **Deepgram** due to OpenAI quota limit.
-* You can easily switch back to OpenAI if needed.
-* Clean UI and logic meet all requirements from the task.
 
